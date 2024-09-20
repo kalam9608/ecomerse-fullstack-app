@@ -54,11 +54,9 @@ const items = [
 ];
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
+  { name: "Best Rating", sort: "rating", order: "desc", current: false },
+  { name: "Price: Low to High", sort: "price", order: "asc", current: false },
+  { name: "Price: High to Low", sort: "price", order: "desc", current: false },
 ];
 const filters = [
   {
@@ -123,6 +121,14 @@ const ProductList = () => {
     setFilter(newFilter);
     dispatch(fetchProductByFilterAsyncApi(newFilter));
   };
+
+  const handlerSorting = (e, option) => {
+    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
+
+    setFilter(newFilter);
+    dispatch(fetchProductByFilterAsyncApi(newFilter));
+  };
+
   return (
     <div className="bg-white">
       <div className="bg-white">
@@ -241,7 +247,7 @@ const ProductList = () => {
                       {sortOptions.map((option) => (
                         <MenuItem key={option.name}>
                           <a
-                            href={option.href}
+                            onClick={(e) => handlerSorting(e, option)}
                             className={classNames(
                               option.current
                                 ? "font-medium text-gray-900"
