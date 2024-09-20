@@ -24,7 +24,10 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductApi } from "./productListSlice";
+import {
+  fetchProductApi,
+  fetchProductByFilterAsyncApi,
+} from "./productListSlice";
 
 const items = [
   {
@@ -112,6 +115,14 @@ const ProductList = () => {
     dispatch(fetchProductApi());
   }, []);
 
+  const [filter, setFilter] = useState({});
+
+  const handlerFilter = (e, section, option) => {
+    const newFilter = { ...filter, [section]: option.value };
+
+    setFilter(newFilter);
+    dispatch(fetchProductByFilterAsyncApi(newFilter));
+  };
   return (
     <div className="bg-white">
       <div className="bg-white">
@@ -181,6 +192,9 @@ const ProductList = () => {
                                 defaultChecked={option.checked}
                                 id={`filter-mobile-${section.id}-${optionIdx}`}
                                 name={`${section.id}[]`}
+                                onChange={(e) =>
+                                  handlerFilter(e, section.id, option)
+                                }
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />
