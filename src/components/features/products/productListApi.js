@@ -6,12 +6,17 @@ export function productListApi() {
   });
 }
 
-export function productListApiByFilter(filter) {
+export function productListApiByFilter(filter, sort) {
+  console.log("filer===>", filter);
   return new Promise(async (resolve) => {
     let querystring = "";
 
     for (const key in filter) {
       querystring += `${[key]}=${filter[key]}&`;
+    }
+
+    for (const key in sort) {
+      querystring += `${[key]}=${sort[key]}&`;
     }
 
     // console.log("qur====>",querystring)

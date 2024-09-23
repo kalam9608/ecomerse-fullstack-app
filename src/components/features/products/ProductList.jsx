@@ -109,25 +109,27 @@ const ProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector((state) => state.product.products);
 
-  useEffect(() => {
-    dispatch(fetchProductApi());
-  }, []);
-
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
 
   const handlerFilter = (e, section, option) => {
+    console.log("filter===>",filter)
     const newFilter = { ...filter, [section]: option.value };
-
     setFilter(newFilter);
-    dispatch(fetchProductByFilterAsyncApi(newFilter));
+    // dispatch(fetchProductByFilterAsyncApi(newFilter));
   };
 
   const handlerSorting = (e, option) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
+    const newFilter = { ...sort, _sort: option.sort, _order: option.order };
 
-    setFilter(newFilter);
-    dispatch(fetchProductByFilterAsyncApi(newFilter));
+    setSort(newFilter);
+    // dispatch(fetchProductByFilterAsyncApi(newFilter));
   };
+
+  useEffect(() => {
+    // dispatch(fetchProductApi());
+    dispatch(fetchProductByFilterAsyncApi({ filter, sort }));
+  }, [dispatch,filter,sort]);
 
   return (
     <div className="bg-white">
@@ -324,6 +326,9 @@ const ProductList = () => {
                                 defaultChecked={option.checked}
                                 id={`filter-${section.id}-${optionIdx}`}
                                 name={`${section.id}[]`}
+                                onChange={(e) =>
+                                  handlerFilter(e, section.id, option)
+                                }
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />

@@ -1788,6 +1788,49 @@ const categories=categoriesProduct.map(c=>({value:c,label:c.split('-').join(' ')
 
 // console.log("categoriesProduct===>",categoriesProduct)
 
-const brandProduct=[...new Set([...products.map(p=>p.brand)])];
-const brands=brandProduct.map(c=>({value:c,label:c,checked:false}))
-console.log(brands)
+// const brandProduct=[...new Set([...products.map(p=>p.brand)])];
+// const brands=brandProduct.map(c=>({value:c,label:c,checked:false}))
+// console.log(brands)
+
+
+
+// function traversing(){
+
+//   // for(let i=0; i<arr.length;i++){
+//   //   console.log(arr[i])
+//   // }
+//   console.log(arr[2]);
+  
+// }
+
+// traversing()
+
+let arr=[20,30,40,50,60]
+
+
+function insert(){
+  let pos=2;
+  let elem=33;
+  for(let i=arr.length-1 ; i>=0; i--){
+
+    if(i>=pos){
+
+      arr[i+1]=arr[i]
+      if(i==pos)
+        arr[i+1]=elem 
+      
+    }
+
+    
+  }
+  console.log(arr)
+
+  // console.log(arr)
+
+}
+
+// insert()
+
+delete arr[4]
+
+console.log(arr)
