@@ -1831,6 +1831,15 @@ function insert(){
 
 // insert()
 
-delete arr[4]
+// delete arr[4]
 
-console.log(arr)
+// console.log(arr)
+
+let obj={
+  brand:"ios"
+}
+
+delete obj["brand"]
+
+
+console.log(obj)
