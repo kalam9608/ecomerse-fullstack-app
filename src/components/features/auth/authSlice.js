@@ -9,7 +9,6 @@ const initialState = {
 export const createUserAsync = createAsyncThunk(
   "user/createUser",
   async (userData) => {
-    console.log(userData);
 
     const response = await createUser(userData);
     return response.data;
@@ -26,7 +25,7 @@ export const productListSlice = createSlice({
         state.status = "loading";
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
-        state.users = action.payload;
+        state.logedInUser = action.payload;
         state.status = "success";
       });
   },
@@ -35,6 +34,6 @@ export const productListSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {} = productListSlice.actions;
 
-const selectedUser = (state) => state.auth.logedInUser;
+export const selectedUser = (state) => state.auth.logedInUser;
 
 export default productListSlice.reducer;

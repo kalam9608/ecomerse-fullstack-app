@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { createUserAsync } from "./authSlice";
-import { useDispatch } from "react-redux";
+import { createUserAsync, selectedUser } from "./authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const {
@@ -12,6 +12,9 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const logedInUser = useSelector(selectedUser);
+
+  // console.log("users===>", { logedInUser });
 
   const onSubmit = (data) => {
     dispatch(createUserAsync({ email: data.email, password: data.password }));
