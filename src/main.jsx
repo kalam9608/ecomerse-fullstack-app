@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import ProductDetails from "./pages/ProductDetailsPage.jsx";
 import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
+import ProtectedRoute from "./components/features/auth/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <App />,
+        element: (
+          <ProtectedRoute>
+            <App />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
@@ -31,15 +36,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <CartPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/checkout",
-        element: <Checkout />,
+        element: (
+          <ProtectedRoute>
+            <Checkout />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/product-details/:id",
-        element: <ProductDetailsPage />,
+        element: (
+          <ProtectedRoute>
+            <ProductDetailsPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
