@@ -26,79 +26,18 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProductApi,
+  fetchProductBrandsApi,
   fetchProductByFilterAsyncApi,
+  fetchProductCategoryApi,
+  selectBrand,
+  selectCategory,
 } from "./productListSlice";
 import { ITEM_PER_PAGE } from "../../../constant";
-
-const items = [
-  {
-    id: 1,
-    title: "Back End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 2,
-    title: "Front End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 3,
-    title: "User Interface Designer",
-    department: "Design",
-    type: "Full-time",
-    location: "Remote",
-  },
-];
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
   { name: "Price: High to Low", sort: "price", order: "desc", current: false },
-];
-const filters = [
-  {
-    id: "brand",
-    name: "Brand",
-    options: [
-      { value: "Essence", label: "Essence", checked: false },
-      { value: "Glamour Beauty", label: "Glamour Beauty", checked: false },
-      { value: "Velvet Touch", label: "Velvet Touch", checked: false },
-      { value: "Chic Cosmetics", label: "Chic Cosmetics", checked: false },
-      { value: "Nail Couture", label: "Nail Couture", checked: false },
-      { value: "Calvin Klein", label: "Calvin Klein", checked: false },
-      { value: "Chanel", label: "Chanel", checked: false },
-      { value: "Dior", label: "Dior", checked: false },
-      {
-        value: "Dolce & Gabbana",
-        label: "Dolce & Gabbana",
-        checked: false,
-      },
-      { value: "Gucci", label: "Gucci", checked: false },
-      {
-        value: "Annibale Colombo",
-        label: "Annibale Colombo",
-        checked: false,
-      },
-      { value: "Furniture Co.", label: "Furniture Co.", checked: false },
-      { value: "Knoll", label: "Knoll", checked: false },
-      { value: "Bath Trends", label: "Bath Trends", checked: false },
-      { value: undefined, label: undefined, checked: false },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "beauty", label: "beauty", checked: false },
-      { value: "fragrances", label: "fragrances", checked: false },
-      { value: "furniture", label: "furniture", checked: false },
-      { value: "groceries", label: "groceries", checked: false },
-    ],
-  },
 ];
 
 function classNames(...classes) {
@@ -109,10 +48,25 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector((state) => state.product.products);
+  const brands = useSelector(selectBrand);
+  const categaries = useSelector(selectCategory);
 
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
+
+  const filters = [
+    {
+      id: "brand",
+      name: "Brand",
+      options: brands,
+    },
+    {
+      id: "category",
+      name: "Category",
+      options: categaries,
+    },
+  ];
 
   // const handlerFilter = (e, section, option) => {
   //   const newFilter = { ...filter };
@@ -166,6 +120,13 @@ const ProductList = () => {
     const pagination = { _page: page, _limit: ITEM_PER_PAGE };
     dispatch(fetchProductByFilterAsyncApi({ filter, sort, pagination }));
   }, [dispatch, filter, sort, page]);
+
+  useEffect(() => {
+
+    dispatch(fetchProductBrandsApi());
+    dispatch(fetchProductCategoryApi());
+
+  }, []);
 
   return (
     <div className="bg-white">

@@ -6,6 +6,22 @@ export function productListApi() {
   });
 }
 
+export function productListBrandApi() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/brands");
+    const data = response.json();
+    resolve({ data });
+  });
+}
+
+export function productListCategoryApi() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/categaries");
+    const data = response.json();
+    resolve({ data });
+  });
+}
+
 export function productListApiByFilter(filter, sort, pagination) {
   let querystring = "";
 
