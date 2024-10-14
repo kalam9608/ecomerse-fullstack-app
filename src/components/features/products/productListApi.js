@@ -7,12 +7,17 @@ export function productListApi() {
 }
 
 export function productListApiByFilter(filter, sort) {
-  console.log("filer===>", filter);
   return new Promise(async (resolve) => {
     let querystring = "";
 
     for (const key in filter) {
-      querystring += `${[key]}=${filter[key]}&`;
+      let categoryValue = filter[key];
+      if (categoryValue.length > 1) {
+        let lastCat = categoryValue[categoryValue.length - 1];
+        // console.log("lastCat=====>", lastCat);
+        querystring += `${[key]}=${lastCat}&`;
+        // console.log("query=====>", querystring);
+      }
     }
 
     for (const key in sort) {

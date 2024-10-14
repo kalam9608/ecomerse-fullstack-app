@@ -112,17 +112,39 @@ const ProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
 
+  // const handlerFilter = (e, section, option) => {
+  //   const newFilter = { ...filter };
+  //   if (e.target.checked) {
+  //     newFilter[section] = option.value;
+  //   } else {
+  //     delete newFilter[section];
+  //   }
+
+  //   setFilter(newFilter);
+
+  //   // dispatch(fetchProductByFilterAsyncApi(newFilter));
+  // };
+
+  // console.log("array===>",filter);
+
   const handlerFilter = (e, section, option) => {
     const newFilter = { ...filter };
     if (e.target.checked) {
-      newFilter[section] = option.value;
+      if (newFilter[section]?.length > 0) {
+        newFilter[section].push(option.value);
+      } else {
+        newFilter[section] = [option.value];
+      }
     } else {
-      delete newFilter[section];
+      const index = newFilter[section].findIndex((v) => v == e.target.value);
+      // const index = newFilter[section].indexOf(e.target.value);
+
+      // console.log("index==>", index);
+
+      newFilter[section].splice(index, 1);
     }
 
     setFilter(newFilter);
-
-    // dispatch(fetchProductByFilterAsyncApi(newFilter));
   };
 
   const handlerSorting = (e, option) => {

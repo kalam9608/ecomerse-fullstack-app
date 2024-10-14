@@ -1805,29 +1805,29 @@ const categories=categoriesProduct.map(c=>({value:c,label:c.split('-').join(' ')
 
 // traversing()
 
-let arr=[20,30,40,50,60]
+// let arr=[20,30,40,50,60]
 
 
-function insert(){
-  let pos=2;
-  let elem=33;
-  for(let i=arr.length-1 ; i>=0; i--){
+// function insert(){
+//   let pos=2;
+//   let elem=33;
+//   for(let i=arr.length-1 ; i>=0; i--){
 
-    if(i>=pos){
+//     if(i>=pos){
 
-      arr[i+1]=arr[i]
-      if(i==pos)
-        arr[i+1]=elem 
+//       arr[i+1]=arr[i]
+  //     if(i==pos)
+  //       arr[i+1]=elem 
       
-    }
+  //   }
 
     
-  }
-  console.log(arr)
+  // }
+  // console.log(arr)
 
   // console.log(arr)
 
-}
+// }
 
 // insert()
 
@@ -1835,11 +1835,28 @@ function insert(){
 
 // console.log(arr)
 
-let obj={
-  brand:"ios"
-}
+// let obj={
+//   brand:"ios"
+// }
 
-delete obj["brand"]
+// delete obj["brand"]
 
 
-console.log(obj)
+// console.log(obj)
+
+
+let arr=["md","kalam","ansari","md"]
+let arrObj=[{
+  name:"kalam"
+},{
+  name:"ansari"
+},{
+  name:"md"
+}]
+
+// const res=arrObj.find((v)=>v.name=="kalam")
+// const res=arr.findIndex((v)=>v=="md")
+// const res=arr.indexOf("kalam")
+
+
+console.log("res====>",res)
