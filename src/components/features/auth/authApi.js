@@ -9,3 +9,22 @@ export function createUser(userData) {
     resolve({ data });
   });
 }
+
+export function checkUser(logeInfo) {
+  return new Promise(async (resolve, reject) => {
+    const email = logeInfo.email;
+    const password = logeInfo.password;
+
+    const response = await fetch("http://localhost:3000/users?email=" + email);
+    const data = await response.json();
+    if (data.length) {
+      if (password == data[0].password) {
+        resolve({ data: data[0] });
+      } else {
+        reject({ message: "password is wrong" });
+      }
+    } else {
+      resolve({ message: "user not found" });
+    }
+  });
+}
