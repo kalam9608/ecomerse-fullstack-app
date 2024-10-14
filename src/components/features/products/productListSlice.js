@@ -1,11 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { productListApi, productListApiByFilter, productListBrandApi, productListCategoryApi } from "./productListApi";
+import {
+  productByIdApi,
+  productListApi,
+  productListApiByFilter,
+  productListBrandApi,
+  productListCategoryApi,
+} from "./productListApi";
 
 const initialState = {
   products: [],
   brands: [],
   categories: [],
   status: "idle",
+  selectProduct: null,
 };
 
 export const fetchProductApi = createAsyncThunk(
@@ -28,6 +35,14 @@ export const fetchProductCategoryApi = createAsyncThunk(
   "cart/fetchProductCategoryApi",
   async () => {
     const response = await productListCategoryApi();
+    return response.data;
+  }
+);
+
+export const fetchProductSelectApi = createAsyncThunk(
+  "cart/fetchProductByIdApi",
+  async (id) => {
+    const response = await productByIdApi(id);
     return response.data;
   }
 );
@@ -59,17 +74,26 @@ export const productListSlice = createSlice({
       .addCase(fetchProductByFilterAsyncApi.fulfilled, (state, action) => {
         state.products = action.payload;
         state.status = "idle";
-      }) .addCase(fetchProductBrandsApi.pending, (state, action) => {
+      })
+      .addCase(fetchProductBrandsApi.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(fetchProductBrandsApi.fulfilled, (state, action) => {
         state.brands = action.payload;
         state.status = "idle";
-      }) .addCase(fetchProductCategoryApi.pending, (state, action) => {
+      })
+      .addCase(fetchProductCategoryApi.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(fetchProductCategoryApi.fulfilled, (state, action) => {
         state.categories = action.payload;
+        state.status = "idle";
+      })
+      .addCase(fetchProductSelectApi.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchProductSelectApi.fulfilled, (state, action) => {
+        state.selectProduct = action.payload;
         state.status = "idle";
       });
   },
@@ -79,5 +103,6 @@ export const productListSlice = createSlice({
 export const {} = productListSlice.actions;
 export const selectBrand = (state) => state.product.brands;
 export const selectCategory = (state) => state.product.categories;
+export const selectProduct = (state) => state.product.selectProduct;
 
 export default productListSlice.reducer;

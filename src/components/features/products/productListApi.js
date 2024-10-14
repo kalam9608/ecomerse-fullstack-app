@@ -6,6 +6,14 @@ export function productListApi() {
   });
 }
 
+export function productByIdApi(id) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/products/" + id);
+    const data = response.json();
+    resolve({ data });
+  });
+}
+
 export function productListBrandApi() {
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:3000/brands");
