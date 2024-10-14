@@ -1859,4 +1859,7 @@ let arrObj=[{
 // const res=arr.indexOf("kalam")
 
 
-console.log("res====>",res)
+// console.log("res====>",res)
+
+console.log(Array.from({length:1}))
+console.log(Array.from({length:Math.ceil(55/10)}))

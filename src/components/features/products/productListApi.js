@@ -6,30 +6,33 @@ export function productListApi() {
   });
 }
 
-export function productListApiByFilter(filter, sort) {
+export function productListApiByFilter(filter, sort, pagination) {
+  let querystring = "";
+
+  for (const key in filter) {
+    let categoryValue = filter[key];
+    if (categoryValue.length > 0) {
+      let lastCat = categoryValue[categoryValue.length - 1];
+      // console.log("lastCat=====>", lastCat);
+      querystring += `${[key]}=${lastCat}&`;
+      // console.log("query=====>", querystring);
+    }
+  }
+
+  for (const key in sort) {
+    querystring += `${[key]}=${sort[key]}&`;
+  }
+
+  for (const key in pagination) {
+    querystring += `${[key]}=${pagination[key]}&`;
+  }
+
+  // console.log("qur====>",querystring)
   return new Promise(async (resolve) => {
-    let querystring = "";
-
-    for (const key in filter) {
-      let categoryValue = filter[key];
-      if (categoryValue.length > 1) {
-        let lastCat = categoryValue[categoryValue.length - 1];
-        // console.log("lastCat=====>", lastCat);
-        querystring += `${[key]}=${lastCat}&`;
-        // console.log("query=====>", querystring);
-      }
-    }
-
-    for (const key in sort) {
-      querystring += `${[key]}=${sort[key]}&`;
-    }
-
-    // console.log("qur====>",querystring)
-
     const response = await fetch(
       "http://localhost:3000/products?" + querystring
     );
-    const data = response.json();
+    const data = await response.json();
     resolve({ data });
   });
 }

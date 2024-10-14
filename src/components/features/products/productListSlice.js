@@ -16,8 +16,9 @@ export const fetchProductApi = createAsyncThunk(
 
 export const fetchProductByFilterAsyncApi = createAsyncThunk(
   "cart/fetchProductByFilterAsyncApi",
-  async ({filter,sort}) => {
-    const response = await productListApiByFilter(filter,sort);
+  async ({filter,sort,pagination}) => {
+    
+    const response = await productListApiByFilter(filter,sort,pagination);
     return response.data;
   }
 );
