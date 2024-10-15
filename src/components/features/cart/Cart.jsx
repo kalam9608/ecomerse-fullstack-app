@@ -4,17 +4,22 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectedItems } from "./cartListSlice";
+import { selectedItems, updateCartItemsAsyncById } from "./cartListSlice";
 
 const Cart = () => {
   const items = useSelector(selectedItems);
+  const dispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount, value) => value.price * value.quantity + amount,
     0
   );
   console.log("items===>", totalAmount);
+
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartItemsAsyncById({ ...item, quantity: +e.target.value }));
+  };
 
   return (
     <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
@@ -22,8 +27,8 @@ const Cart = () => {
         <div className="mt-8">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {items.map((product) => (
-                <li key={product.id} className="flex py-6">
+              {items.map((product,index) => (
+                <li key={index} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
                       alt={product.title}
@@ -47,9 +52,14 @@ const Cart = () => {
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500">
                         Qty
-                        <select name="" id="">
+                        <select
+                          onChange={(e) => handleQuantity(e, product)}
+                          value={product.quantity}
+                        >
                           <option value="1">1</option>
                           <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
                         </select>
                       </div>
 

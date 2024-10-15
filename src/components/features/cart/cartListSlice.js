@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addToCart, getCartItemsById } from "./CartListApi";
+import { addToCart, getCartItemsById, updateToCart } from "./CartListApi";
 
 const initialState = {
   items: [],
@@ -19,9 +19,16 @@ export const addToCartAsync = createAsyncThunk(
 export const getCartItemsAsyncById = createAsyncThunk(
   "cart/getCartItemsAsync",
   async (userId) => {
-    // console.log("userid===>",userId);
-    
     const response = await getCartItemsById(userId);
+    return response.data;
+  }
+);
+
+export const updateCartItemsAsyncById = createAsyncThunk(
+  "cart/updateCartItemsAsyncById",
+  async (updateItem) => {
+    
+    const response = await updateToCart(updateItem);
     return response.data;
   }
 );
@@ -44,6 +51,16 @@ export const cartListSlice = createSlice({
       })
       .addCase(getCartItemsAsyncById.fulfilled, (state, action) => {
         state.items = action.payload;
+        state.status = "idle";
+      })
+      .addCase(updateCartItemsAsyncById.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updateCartItemsAsyncById.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (item) => (item.id = action.payload.id)
+        );
+        state.items[index] = action.payload;
         state.status = "idle";
       });
   },

@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import { selectedItems } from "../features/cart/cartListSlice";
 import { useSelector } from "react-redux";
+import { selectedUser } from "../features/auth/authSlice";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -27,6 +28,8 @@ function classNames(...classes) {
 
 const NavBar = () => {
   const items = useSelector(selectedItems);
+  const user = useSelector(selectedUser);
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -48,11 +51,7 @@ const NavBar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
+            <p className="text-white">{user.email.slice(0,5)}</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
