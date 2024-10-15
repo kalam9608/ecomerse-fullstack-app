@@ -31,6 +31,8 @@ import {
   selectBrand,
   selectProduct,
 } from "./productListSlice";
+import { selectedUser } from "../auth/authSlice";
+import { addToCartAsync } from "../cart/cartListSlice";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -63,6 +65,7 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const dispatch = useDispatch();
   const product = useSelector(selectProduct);
+  const user = useSelector(selectedUser);
 
   console.log({ product });
 
@@ -70,6 +73,11 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(fetchProductSelectApi(params.id));
   }, [params.id]);
+
+  const handleCart = (e, item) => {
+    e.preventDefault();
+    dispatch(addToCartAsync({ ...item, quantity: 1, user: user.id }));
+  };
 
   return (
     <div className="bg-white">
@@ -260,6 +268,7 @@ export default function ProductDetails() {
                 </div>
 
                 <button
+                  onClick={(e) => handleCart(e, product)}
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >

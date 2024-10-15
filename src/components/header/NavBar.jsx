@@ -13,6 +13,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { selectedItems } from "../features/cart/cartListSlice";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -24,6 +26,7 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
+  const items = useSelector(selectedItems);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -80,7 +83,7 @@ const NavBar = () => {
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
                 <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                  0
+                  {items.length}
                 </span>
                 <ShoppingCartIcon aria-hidden="true" className="h-6 w-6" />
               </button>
