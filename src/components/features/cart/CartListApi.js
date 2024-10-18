@@ -12,7 +12,7 @@ export function addToCart(item) {
 
 export function getCartItemsById(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:3000/cart?user="+userId);
+    const response = await fetch("http://localhost:3000/cart?user=" + userId);
     const data = await response.json();
     resolve({ data });
   });
@@ -20,12 +20,26 @@ export function getCartItemsById(userId) {
 
 export function updateToCart(updateItem) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:3000/cart/"+updateItem.id, {
-      method: "PATCH",
-      body: JSON.stringify(updateItem),
+    const response = await fetch(
+      "http://localhost:3000/cart/" + updateItem.id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(updateItem),
+        headers: { "content-type": "application-json" },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function deleteItem(itemId) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/cart/" + itemId, {
+      method: "DELETE",
       headers: { "content-type": "application-json" },
     });
     const data = await response.json();
-    resolve({ data });
+    resolve({ data: data.id });
   });
 }

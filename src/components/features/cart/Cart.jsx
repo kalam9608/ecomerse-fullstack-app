@@ -6,7 +6,7 @@ import {
 } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectedItems, updateCartItemsAsyncById } from "./cartListSlice";
+import { deleteCartItemsAsyncById, selectedItems, updateCartItemsAsyncById } from "./cartListSlice";
 
 const Cart = () => {
   const items = useSelector(selectedItems);
@@ -15,11 +15,15 @@ const Cart = () => {
     (amount, value) => value.price * value.quantity + amount,
     0
   );
-  console.log("items===>", totalAmount);
+  // console.log("items===>", totalAmount);
 
   const handleQuantity = (e, item) => {
     dispatch(updateCartItemsAsyncById({ ...item, quantity: +e.target.value }));
   };
+
+  const handleRemove=(id)=>{
+    dispatch(deleteCartItemsAsyncById(id))
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
@@ -27,7 +31,7 @@ const Cart = () => {
         <div className="mt-8">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {items.map((product,index) => (
+              {items.map((product, index) => (
                 <li key={index} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
@@ -65,6 +69,9 @@ const Cart = () => {
 
                       <div className="flex">
                         <button
+                          onClick={() =>
+                           handleRemove(product.id)
+                          }
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >

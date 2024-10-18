@@ -1861,5 +1861,38 @@ let arrObj=[{
 
 // console.log("res====>",res)
 
-console.log(Array.from({length:1}))
-console.log(Array.from({length:Math.ceil(55/10)}))
+// console.log(Array.from({length:1}))
+// console.log(Array.from({length:Math.ceil(55/10)}))
+
+// debugger
+
+for (var i = 0; i < 5; i++) {
+  setTimeout(() => console.log(i), 5000)
+}
+
+for (let i = 0; i < 5; i++) {
+  setTimeout(() => console.log(i), 5000)
+}
+
+
+// function test1(){
+//   setTimeout(() => {
+//     console.log("test 1 called");
+    
+//   }, 0);
+// }
+
+
+// setTimeout(()=>{
+// console.log("titme");
+
+// },0)
+
+// console.log("called two");
+
+
+// test1()
+
+// console.log("called3");
+
+
