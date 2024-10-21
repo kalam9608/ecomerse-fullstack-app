@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { selectedUser } from "../components/features/auth/authSlice";
 import { resetCartAsync } from "../components/features/cart/cartListSlice";
+import { resetOrder } from "../components/features/order/orderSlice";
 
 export default function OrderSuccessPage({ order }) {
   const params = useParams();
@@ -12,7 +13,11 @@ export default function OrderSuccessPage({ order }) {
   // console.log("params=====>",params);
 
   useEffect(() => {
+    // reset cart
     dispatch(resetCartAsync(user.id));
+
+    // reset current order
+    dispatch(resetOrder());
   }, [dispatch, user]);
 
   return (
