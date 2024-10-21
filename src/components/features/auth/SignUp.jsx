@@ -18,7 +18,7 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log({ data });
-    dispatch(createUserAsync({ email: data.email, password: data.password }));
+    dispatch(createUserAsync({ email: data.email, password: data.password,address:[] }));
   };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
