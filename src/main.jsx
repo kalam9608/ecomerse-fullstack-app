@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/features/auth/ProtectedRoute.jsx";
 import PageNotFound from "./pages/404.jsx";
 import OrderSuccessPage from "./pages/OrderSuccess.jsx";
 import MyOrderPage from "./pages/MyOrderPage.jsx";
+import LogoutPage from "./pages/LogoutPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyOrderPage />,
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/logout",
+        element: (
+          <ProtectedRoute>
+            <LogoutPage />,
           </ProtectedRoute>
         ),
       },

@@ -16,8 +16,11 @@ const UserOrder = () => {
       {/* {!orders && <h1 className="text-xl mt-8">Nothing</h1>} */}
 
       {orders.map((order) => (
-        <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8 bg-white shadow">
           <h1 className="text-xl font-bold ml-4 mt-4">Order #{order.id}</h1>
+          <h1 className="text-xl text-green-800 font-bold ml-4 mt-4">
+            status-{order.status}
+          </h1>
           <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
             <div className="mt-8">
               <div className="flow-root">

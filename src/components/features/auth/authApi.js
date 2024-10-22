@@ -43,3 +43,9 @@ export function updateUser(updateUser) {
     resolve({ data });
   });
 }
+
+export function logoutUser(updateUser) {
+  return new Promise(async (resolve) => {
+    resolve({ data: "success" });
+  });
+}
