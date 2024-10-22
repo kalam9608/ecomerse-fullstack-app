@@ -62,6 +62,7 @@ function Checkout() {
         user,
         paymentMethod,
         selectedAddress,
+        total:totalAmount,
         status: "pending", // other status can be delivered or received
       };
       dispatch(createOrderAsync(order));

@@ -1,111 +1,39 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  addToCart,
-  deleteItem,
-  getCartItemsById,
-  resetCart,
-  updateToCart,
-} from "./CartListApi";
+import { fetchLogedInUserOrder } from "./userApi";
 
 const initialState = {
-  items: [],
+  LogedInUserOrder: [],
   status: "idle",
 };
 
-export const addToCartAsync = createAsyncThunk(
-  "cart/addToCartAsync",
-  async (item) => {
-    console.log("item", { item });
-
-    const response = await addToCart(item);
-    return response.data;
-  }
-);
-
-export const getCartItemsAsyncById = createAsyncThunk(
-  "cart/getCartItemsAsync",
+export const fetchLogedInUserOrderAsync = createAsyncThunk(
+  "cart/fetchLogedInUser",
   async (userId) => {
-    const response = await getCartItemsById(userId);
+    // console.log("userid====>",userId);
+    
+    const response = await fetchLogedInUserOrder(userId);
     return response.data;
   }
 );
 
-export const updateCartItemsAsyncById = createAsyncThunk(
-  "cart/updateCartItemsAsyncById",
-  async (updateItem) => {
-    const response = await updateToCart(updateItem);
-    return response.data;
-  }
-);
-
-export const deleteCartItemsAsyncById = createAsyncThunk(
-  "cart/deleteCartItemsAsyncById",
-  async (itemId) => {
-    const response = await deleteItem(itemId);
-    return response.data;
-  }
-);
-
-export const resetCartAsync = createAsyncThunk(
-  "cart/resetCart",
-  async (userId) => {
-    const response = await resetCart(userId);
-    return response.data;
-  }
-);
-
-export const cartListSlice = createSlice({
-  name: "cart",
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addToCartAsync.pending, (state, action) => {
+      .addCase(fetchLogedInUserOrderAsync.pending, (state, action) => {
         state.status = "loading";
       })
-      .addCase(addToCartAsync.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+      .addCase(fetchLogedInUserOrderAsync.fulfilled, (state, action) => {
+        state.LogedInUserOrder = action.payload;
         state.status = "idle";
-      })
-      .addCase(getCartItemsAsyncById.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(getCartItemsAsyncById.fulfilled, (state, action) => {
-        state.items = action.payload;
-        state.status = "idle";
-      })
-      .addCase(updateCartItemsAsyncById.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(updateCartItemsAsyncById.fulfilled, (state, action) => {
-        const index = state.items.findIndex(
-          (item) => (item.id = action.payload.id)
-        );
-        state.items[index] = action.payload;
-        state.status = "idle";
-      })
-      .addCase(deleteCartItemsAsyncById.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(deleteCartItemsAsyncById.fulfilled, (state, action) => {
-        const index = state.items.findIndex(
-          (item) => (item.id = action.payload.id)
-        );
-        state.status = "idle";
-        state.items.splice(index, 1);
-      })
-      .addCase(resetCartAsync.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(resetCartAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.items = [];
       });
   },
 });
 
-// Action creators are generated for each case reducer function
-export const {} = cartListSlice.actions;
-export const selectedItems = (state) => state.cart.items;
+export const {} = userSlice.actions;
 
-export default cartListSlice.reducer;
+export const selectOrders = (state) => state.user.LogedInUserOrder;
+
+export default userSlice.reducer;
