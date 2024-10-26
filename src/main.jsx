@@ -17,6 +17,8 @@ import PageNotFound from "./pages/404.jsx";
 import OrderSuccessPage from "./pages/OrderSuccess.jsx";
 import MyOrderPage from "./pages/MyOrderPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
+import UserProfile from "./components/features/user/components/userProfile.jsx";
+import MyProfilePage from "./pages/MyProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <LogoutPage />,
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <MyProfilePage />,
           </ProtectedRoute>
         ),
       },

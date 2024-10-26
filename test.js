@@ -1864,14 +1864,14 @@ let arrObj=[{
 // console.log(Array.from({length:1}))
 // console.log(Array.from({length:Math.ceil(55/10)}))
 
-// debugger
+debugger
 
 for (var i = 0; i < 5; i++) {
-  setTimeout(() => console.log(i), 5000)
+  setTimeout(() => console.log(i), 1000)
 }
 
 for (let i = 0; i < 5; i++) {
-  setTimeout(() => console.log(i), 5000)
+  setTimeout(() => console.log(i), 1000)
 }
 
 
