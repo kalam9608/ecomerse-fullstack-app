@@ -8,13 +8,13 @@ import {
 import { useForm } from "react-hook-form";
 import {
   selectedUser,
-  updateUserAsync,
 } from "../components/features/auth/authSlice";
 import { useState } from "react";
 import {
   createOrderAsync,
   selectCurrentOrder,
 } from "../components/features/order/orderSlice";
+import { updateUserAsync } from "../components/features/user/userSlice";
 
 
 function Checkout() {
