@@ -6,6 +6,14 @@ export function fetchLogedInUserOrder(userId) {
   });
 }
 
+export function fetchLogedInUserInfo(userId) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/users/" + userId);
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
 export function updateUser(updateUser) {
   return new Promise(async (resolve) => {
     const response = await fetch(
