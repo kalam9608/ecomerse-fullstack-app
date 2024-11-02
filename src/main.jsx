@@ -22,6 +22,7 @@ import MyProfilePage from "./pages/MyProfilePage.jsx";
 import ForgoutPage from "./pages/ForgoutPage.jsx";
 import AdminProtectedRoute from "./components/features/auth/AdminProtectedRoute.jsx";
 import AdminHome from "./pages/AdminHome.jsx";
+import ProductPageForm from "./pages/ProductPageForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,22 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <ProductDetailsPage />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/product-form",
+        element: (
+          <AdminProtectedRoute>
+            <ProductPageForm />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/product-form/edit/:id",
+        element: (
+          <AdminProtectedRoute>
+            <ProductPageForm />
+          </AdminProtectedRoute>
         ),
       },
       {

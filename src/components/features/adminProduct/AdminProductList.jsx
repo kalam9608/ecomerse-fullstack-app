@@ -225,12 +225,12 @@ const AdminProductList = () => {
                 Products List
               </h1>
 
-              <button
-                type="button"
+              <Link
+                to={`/admin/product-form`}
                 className="-m-2 ml-4 p-2 text-gray-400 bg-green-500 hover:text-gray-500 sm:ml-6 lg:hidden mt-2 rounded-md"
               >
                 <span className="text-white">Add Product</span>
-              </button>
+              </Link>
 
               <div className="flex items-center">
                 <Menu as="div" className="relative inline-block text-left">
@@ -386,12 +386,12 @@ const AdminProductList = () => {
                               </div>
                             </div>
                           </Link>
-                          <button
-                            type="button"
+                          <Link
+                            to={`/admin/product-form/${product.id}`}
                             className="-m-2 ml-4 p-2 text-gray-400 bg-blue-500 hover:text-gray-500 sm:ml-6 lg:hidden mt-2 rounded-md"
                           >
                             <span className="text-white">Edit Product</span>
-                          </button>
+                          </Link>
                         </div>
                       ))}
                     </div>

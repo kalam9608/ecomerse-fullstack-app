@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  createProduct,
   productByIdApi,
   productListApi,
   productListApiByFilter,
@@ -35,6 +36,14 @@ export const fetchProductCategoryApi = createAsyncThunk(
   "cart/fetchProductCategoryApi",
   async () => {
     const response = await productListCategoryApi();
+    return response.data;
+  }
+);
+
+export const createProductAsync = createAsyncThunk(
+  "cart/createProductAsync",
+  async (product) => {
+    const response = await createProduct(product);
     return response.data;
   }
 );
@@ -94,6 +103,13 @@ export const productListSlice = createSlice({
       })
       .addCase(fetchProductSelectApi.fulfilled, (state, action) => {
         state.selectProduct = action.payload;
+        state.status = "idle";
+      })
+      .addCase(createProductAsync.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(createProductAsync.fulfilled, (state, action) => {
+        state.products.push(action.payload);
         state.status = "idle";
       });
   },

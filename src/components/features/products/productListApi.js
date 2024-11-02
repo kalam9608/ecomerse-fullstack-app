@@ -13,6 +13,17 @@ export function productByIdApi(id) {
     resolve({ data });
   });
 }
+export function createProduct(product) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:3000/products/", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: { "content-type": "application-json" },
+    });
+    const data = response.json();
+    resolve({ data });
+  });
+}
 
 export function productListBrandApi() {
   return new Promise(async (resolve) => {
