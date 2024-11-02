@@ -1937,13 +1937,22 @@
           "city": "dsds",
           "postal-code": "835219"
         }
-      ]
+      ],
+      "role": "user"
     },
     {
       "id": "919e",
       "email": "mk@gmail.com",
       "password": "12345",
-      "address": []
+      "address": [],
+      "role": "user"
+    },
+    {
+      "id": "fa63",
+      "email": "mk123@gmail.com",
+      "password": "12345",
+      "address": [],
+      "role": "admin"
     }
   ],
   "cart": [

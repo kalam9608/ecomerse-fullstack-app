@@ -24,6 +24,7 @@ const SignUp = () => {
         email: data.email,
         password: data.password,
         address: [],
+        role:"user"
       })
     );
   };

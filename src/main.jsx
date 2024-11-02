@@ -20,6 +20,8 @@ import LogoutPage from "./pages/LogoutPage.jsx";
 import UserProfile from "./components/features/user/components/userProfile.jsx";
 import MyProfilePage from "./pages/MyProfilePage.jsx";
 import ForgoutPage from "./pages/ForgoutPage.jsx";
+import AdminProtectedRoute from "./components/features/auth/AdminProtectedRoute.jsx";
+import AdminHome from "./pages/AdminHome.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <App />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin",
+        element: (
+          <AdminProtectedRoute>
+            <AdminHome />
+          </AdminProtectedRoute>
         ),
       },
       {

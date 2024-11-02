@@ -18,9 +18,12 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../features/auth/authSlice";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
+  { name: "Dashboard", href: "#", current: true, user: true },
+  { name: "Team", href: "#", current: false, user: true },
+  { name: "Admin", href: "/admin", current: false, admin: true },
 ];
+
+// console.log(navigation[1]['admin'])
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -51,25 +54,27 @@ const NavBar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-            <p className="text-white">{user?.email.slice(0,5)}</p>
+              <p className="text-white">{user?.email.slice(0, 5)}</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {navigation.map((item) =>
+                  item[user.role] ? (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      aria-current={item.current ? "page" : undefined}
+                      className={classNames(
+                        item.current
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  ) : null
+                )}
               </div>
             </div>
           </div>
