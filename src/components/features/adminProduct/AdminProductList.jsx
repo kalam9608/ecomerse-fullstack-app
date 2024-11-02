@@ -385,6 +385,11 @@ const AdminProductList = () => {
                                 </p>
                               </div>
                             </div>
+                            {product.delete && (
+                              <div>
+                                <p className="text-red-300">deleted product</p>
+                              </div>
+                            )}
                           </Link>
                           <Link
                             to={`/admin/product-form/edit/${product.id}`}

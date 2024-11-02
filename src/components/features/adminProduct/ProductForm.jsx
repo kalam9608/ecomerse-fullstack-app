@@ -46,6 +46,12 @@ const ProductForm = () => {
       setValue("stock", selectProductDetails.stock);
     }
   }, [dispatch, selectProductDetails]);
+
+  const handleDelete = () => {
+    const product = { ...selectProductDetails };
+    product.delete = true;
+    dispatch(updateProductAsync(product));
+  };
   return (
     <form
       noValidate
@@ -289,6 +295,15 @@ const ProductForm = () => {
           >
             Reset
           </button>
+
+          {selectProductDetails && (
+            <button
+              onClick={handleDelete}
+              className="text-sm bg-red-600   font-semibold leading-6 text-gray-900 p-2 rounded-md text-white"
+            >
+              delete product
+            </button>
+          )}
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
