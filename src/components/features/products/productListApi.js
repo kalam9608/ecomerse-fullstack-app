@@ -25,6 +25,21 @@ export function createProduct(product) {
   });
 }
 
+export function updateProduct(updateProduct) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      "http://localhost:3000/products/" + updateProduct.id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(updateProduct),
+        headers: { "content-type": "application-json" },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
 export function productListBrandApi() {
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:3000/brands");

@@ -1,25 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProductAsync,
+  fetchProductByIdAsync,
   selectBrand,
   selectCategory,
-  selectProduct,
+  updateProductAsync,
 } from "../products/productListSlice";
+import { useParams } from "react-router-dom";
+import { selectProduct } from "../products/productListSlice";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
   const brands = useSelector(selectBrand);
+  const param = useParams();
+
+  const selectProductDetails = useSelector(selectProduct);
 
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    dispatch(fetchProductByIdAsync(param.id));
+  }, [dispatch, param.id]);
+
+  useEffect(() => {
+    if (selectProductDetails && param.id) {
+      setValue("title", selectProductDetails.title);
+      setValue("description", selectProductDetails.description);
+      setValue("thumbnail", selectProductDetails.thumbnail);
+      setValue("image1", selectProductDetails.images[0]);
+      setValue("image2", selectProductDetails.images[1]);
+      setValue("brand", selectProductDetails.brand);
+      setValue("category", selectProductDetails.category);
+      setValue("price", selectProductDetails.price);
+      setValue("discount", selectProductDetails.discountPercentage);
+      setValue("stock", selectProductDetails.stock);
+    }
+  }, [dispatch, selectProductDetails]);
   return (
     <form
       noValidate
@@ -31,9 +57,14 @@ const ProductForm = () => {
         delete product.image2;
         product.price = +product.price;
         // console.log(product);
-
-        dispatch(createProductAsync(product));
-        reset();
+        if (param.id) {
+          product.id = param.id;
+          dispatch(updateProductAsync(product));
+          reset();
+        } else {
+          dispatch(createProductAsync(product));
+          reset();
+        }
       })}
       className="bg-white px-5 py-12 mt-12"
     >

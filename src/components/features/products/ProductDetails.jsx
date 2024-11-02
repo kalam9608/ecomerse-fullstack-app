@@ -27,7 +27,7 @@ import { Radio, RadioGroup } from "@headlessui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchProductSelectApi,
+  fetchProductByIdAsync,
   selectBrand,
   selectProduct,
 } from "./productListSlice";
@@ -71,7 +71,7 @@ export default function ProductDetails() {
 
   const params = useParams();
   useEffect(() => {
-    dispatch(fetchProductSelectApi(params.id));
+    dispatch(fetchProductByIdAsync(params.id));
   }, [params.id]);
 
   const handleCart = (e, item) => {

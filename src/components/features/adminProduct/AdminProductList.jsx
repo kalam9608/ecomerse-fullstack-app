@@ -387,7 +387,7 @@ const AdminProductList = () => {
                             </div>
                           </Link>
                           <Link
-                            to={`/admin/product-form/${product.id}`}
+                            to={`/admin/product-form/edit/${product.id}`}
                             className="-m-2 ml-4 p-2 text-gray-400 bg-blue-500 hover:text-gray-500 sm:ml-6 lg:hidden mt-2 rounded-md"
                           >
                             <span className="text-white">Edit Product</span>

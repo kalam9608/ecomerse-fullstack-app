@@ -6,6 +6,7 @@ import {
   productListApiByFilter,
   productListBrandApi,
   productListCategoryApi,
+  updateProduct,
 } from "./productListApi";
 
 const initialState = {
@@ -48,10 +49,18 @@ export const createProductAsync = createAsyncThunk(
   }
 );
 
-export const fetchProductSelectApi = createAsyncThunk(
-  "cart/fetchProductByIdApi",
+export const fetchProductByIdAsync = createAsyncThunk(
+  "cart/fetchProductByIdAsync",
   async (id) => {
     const response = await productByIdApi(id);
+    return response.data;
+  }
+);
+
+export const updateProductAsync = createAsyncThunk(
+  "cart/updateProduct",
+  async (product) => {
+    const response = await updateProduct(product);
     return response.data;
   }
 );
@@ -98,10 +107,10 @@ export const productListSlice = createSlice({
         state.categories = action.payload;
         state.status = "idle";
       })
-      .addCase(fetchProductSelectApi.pending, (state, action) => {
+      .addCase(fetchProductByIdAsync.pending, (state, action) => {
         state.status = "loading";
       })
-      .addCase(fetchProductSelectApi.fulfilled, (state, action) => {
+      .addCase(fetchProductByIdAsync.fulfilled, (state, action) => {
         state.selectProduct = action.payload;
         state.status = "idle";
       })
@@ -110,6 +119,16 @@ export const productListSlice = createSlice({
       })
       .addCase(createProductAsync.fulfilled, (state, action) => {
         state.products.push(action.payload);
+        state.status = "idle";
+      })
+      .addCase(updateProductAsync.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updateProductAsync.fulfilled, (state, action) => {
+        const index = state.products.findIndex(
+          (item) => (item.id = action.payload.id)
+        );
+        state.products[index] = action.payload;
         state.status = "idle";
       });
   },
