@@ -19,6 +19,7 @@ import MyOrderPage from "./pages/MyOrderPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import UserProfile from "./components/features/user/components/userProfile.jsx";
 import MyProfilePage from "./pages/MyProfilePage.jsx";
+import ForgoutPage from "./pages/ForgoutPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
             <MyProfilePage />,
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgoutPage />,
       },
       {
         path: "*",
